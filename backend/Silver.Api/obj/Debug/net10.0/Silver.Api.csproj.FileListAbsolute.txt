@@ -63,3 +63,4 @@ C:\Users\injakala\Desktop\programingprojects\silver-game-main\backend\Silver.Api
 C:\Users\injakala\Desktop\programingprojects\silver-game-main\backend\Silver.Api\obj\Debug\net10.0\Silver.Api.csproj.Up2Date
 C:\Users\injakala\Desktop\programingprojects\silver-game-main\backend\Silver.Api\obj\Debug\net10.0\Silver.Api.genruntimeconfig.cache
 C:\Users\injakala\Desktop\programingprojects\silver-game-main\backend\Silver.Api\obj\Debug\net10.0\ref\Silver.Api.dll
+C:\Users\injakala\Desktop\programingprojects\silver-game-main\backend\Silver.Api\obj\Debug\net10.0\Silver.Api.sourcelink.json

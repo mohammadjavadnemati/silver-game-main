@@ -21,3 +21,4 @@ C:\Users\injakala\Desktop\programingprojects\silver-game-main\backend\Silver.Eng
 C:\Users\injakala\Desktop\programingprojects\silver-game-main\backend\Silver.Engine\bin\Debug\net10.0\Silver.Engine.dll
 C:\Users\injakala\Desktop\programingprojects\silver-game-main\backend\Silver.Engine\bin\Debug\net10.0\Silver.Engine.pdb
 C:\Users\injakala\Desktop\programingprojects\silver-game-main\backend\Silver.Engine\obj\Debug\net10.0\ref\Silver.Engine.dll
+C:\Users\injakala\Desktop\programingprojects\silver-game-main\backend\Silver.Engine\obj\Debug\net10.0\Silver.Engine.sourcelink.json
