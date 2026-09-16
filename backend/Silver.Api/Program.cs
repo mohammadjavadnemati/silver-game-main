@@ -3,11 +3,14 @@ using Silver.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var allowedOrigin = Environment.GetEnvironmentVariable("FRONTEND_ORIGIN")
+    ?? "http://localhost:3000";
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("SilverFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:3000") // ← اگه فرانت‌اند رو پورت دیگه‌ای اجرا می‌کنی، همون رو بذار
+        policy.WithOrigins(allowedOrigin)
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -21,15 +24,16 @@ builder.Services.AddSignalR(options =>
 {
     options.EnableDetailedErrors = builder.Environment.IsDevelopment();
 });
-builder.Services.AddSingleton<RoomService>();
 
 var app = builder.Build();
 
-
-
-app.MapGet("/health", () => Results.Ok(new { status = "ok", timestamp = DateTime.UtcNow }));
 app.UseCors("SilverFrontend");
 
+app.MapGet("/health", () => Results.Ok(new { status = "ok", timestamp = DateTime.UtcNow }));
+
 app.MapHub<GameHub>("/hubs/game");
+
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+app.Urls.Add($"http://0.0.0.0:{port}");
 
 app.Run();
