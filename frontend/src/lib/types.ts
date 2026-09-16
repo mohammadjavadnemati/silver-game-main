@@ -1,0 +1,133 @@
+export type PlayerInfo = {
+  playerId: string;
+  name: string;
+  isHost: boolean;
+  isConnected: boolean;
+};
+
+export type RoomInfo = {
+  roomCode: string;
+  status: "WaitingForPlayers" | "InGame" | "Finished";
+  players: PlayerInfo[];
+};
+
+export type CardType =
+  | "Villager" | "Squire" | "Empath" | "Bodyguard" | "Rascal"
+  | "Exposer" | "Revealer" | "Beholder" | "ApprenticeSeer" | "Seer"
+  | "Master" | "Witch" | "Robber" | "Doppelganger"|"Amulet";
+
+export type CardView = {
+  cardId: string;
+  type: CardType | null;   // null یعنی پشت‌ورو و برای تو قابل دیدن نیست
+  value: number | null;
+  isPubliclyRevealed: boolean;
+};
+
+export type VillageView = {
+  playerId: string;
+  bodyguardProtectingCardId: string | null; // فقط برای صاحب روستا پر می‌شه
+  amuletCoveredCardId: string | null;
+  cards: CardView[];
+};
+
+export type GamePhase =
+  | "WaitingToStart" | "RoundInProgress" | "FinalTurnsAfterCall"
+  | "RoundScoring" | "GameFinished";
+
+export type GameStateView = {
+  gameId: string;
+  phase: GamePhase;
+  roundNumber: number;
+  initialPeekDeadlineUtc: string;
+  currentPlayerId: string;
+  playerIdsInTurnOrder: string[];
+  cumulativeScores: Record<string, number>;
+  hasBeenCalled: boolean;
+  callerPlayerId: string | null;
+  amuletHolderPlayerId: string | null;
+  drawPileCount: number;
+  discardPileTop: CardView | null;
+discardPile: CardView[];   // ← این خط رو اضافه کن
+  discardPileCount: number;
+  squireRevealedCards: CardView[];
+  pendingAbilityPlayerId: string | null;
+  pendingAbilityCardType: CardType | null;
+  pendingDrawnCard: CardView | null;
+  pendingRascalChoiceOptions: {
+  cardId: string;
+  type: string | null;
+  value: number | null;
+  isPubliclyRevealed: boolean;
+}[] | null;
+sideActionUsedThisTurn: boolean;
+  villages: Record<string, VillageView>;
+  winnerPlayerId: string | null;
+  InitialPeekDeadlineUtc: string | null;   // ← جدید
+  myInitialPeeksRemaining: number; 
+  drawnCardSource: "None" | "Deck" | "Discard" | "Squire";
+  pendingWitchCard: CardView | null;
+  abilityUsedThisTurn: boolean;
+  roundEndReason: string;
+lastRoundScores: Record<string, number>;
+isFinalRoundDeclared: boolean;
+finalRoundDeclarerPlayerId: string | null;
+
+
+};
+
+export const CARD_NAMES_FA: Record<CardType, string> = {
+  Villager: "اهل دهکده",
+  Squire: "سرباز جوان",
+  Empath: "همدل",
+  Bodyguard: "محافظ",
+  Rascal: "شیطون",
+  Exposer: "افشاگر",
+  Revealer: "آشکارساز",
+  Beholder: "بیننده",
+  ApprenticeSeer: "شاگرد غیب‌گو",
+  Seer: "غیب‌گو",
+  Master: "استاد",
+  Witch: "جادوگر",
+  Robber: "دزد",
+  Doppelganger: "بدل",
+  Amulet: "امولت"
+};
+export const CARD_IMAGES: Record<CardType, string> = {
+  Villager: "/cards/Villager.jpg",
+  Squire: "/cards/Squire.jpg",
+  Empath: "/cards/Empath.jpg",
+  Bodyguard: "/cards/Bodyguard.jpg",
+  Rascal: "/cards/Rascal.jpg",
+  Exposer: "/cards/Exposer.jpg",
+  Revealer: "/cards/Revealer.jpg",
+  Beholder: "/cards/Beholder.jpg",
+  ApprenticeSeer: "/cards/apprenticeseer.jpg",
+  Seer: "/cards/Seer.jpg",
+  Master: "/cards/Master.jpg",
+  Witch: "/cards/Witch.jpg",
+  Robber: "/cards/Robber.jpg",
+  Doppelganger: "/cards/Doppelganger.jpg",
+  Amulet:""
+};
+
+export const CARD_BACK_IMAGE = "/cards/back.png";
+
+// توضیح توانایی هر کارت — متن دلخواه خودتو جای این‌ها بذار
+export const CARD_DESCRIPTIONS_FA: Record<CardType, string> = { 
+  Villager: "با رو شدن هر دو مزرعه‌دار، راند فوراً تمام می‌شود.", 
+  Squire: "به ازای هر سرباز رو‌شده، یک کارت کنار دسته اصلی رو می‌شود.", 
+  Empath: "وقتی که رو شده یک کارت پشت‌ورو از روستای خودت را مخفیانه ببین.", 
+  Bodyguard: "وقتی که رو شده این کارت را روی کارت دیگری بگذار تا از آن محافظت کند.", 
+  Rascal: "به ازای هر شیطون رو‌شده، یک کارت اضافه از دسته بکش و یکی را انتخاب کن.", 
+  Exposer: "یک کارت پشت‌ورو از روستای خودت را رو کن.", 
+  Revealer: "یک کارت پشت‌ورو از هر روستایی را رو کن.", 
+  Beholder: "دو کارت پشت‌ورو از روستای خودت را مخفیانه ببین.",
+  ApprenticeSeer: "یک کارت پشت‌ورو از روستای بازیکن دیگر را مخفیانه ببین.", 
+  Seer: "یک کارت پشت‌ورو را مخفیانه ببین.",
+  Master: "هر کارت دلخواه از دسته دورریختنی را برای تعویض انتخاب کن.", 
+  Witch: "کارت بالای دسته را مخفیانه ببین و با کارت روستای خودت یا بازیکن دیگر تعویض کن.", 
+  Robber: "یک کارت از روستای بازیکن دیگر را با یکی از کارت‌های خودت تعویض کن.", 
+  Doppelganger: "هنگام تعویض چندتایی، می‌تواند با هر عددی هم‌عدد محسوب شود.",
+Amulet:"یکبار میتونی از این کارت مثل کارت محافظ استفاده کنه" 
+};
+  
