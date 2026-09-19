@@ -107,7 +107,7 @@ export const CARD_IMAGES: Record<CardType, string> = {
   Witch: "/cards/Witch.jpg",
   Robber: "/cards/Robber.jpg",
   Doppelganger: "/cards/Doppelganger.jpg",
-  Amulet:""
+  Amulet:"/cards/Amullet.jpg"
 };
 
 export const CARD_BACK_IMAGE = "/cards/back.png";
